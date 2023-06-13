@@ -9,13 +9,7 @@ public class Usuario {
     private String senha;
     private Endereco endereco;
 
-
-    public Usuario(int id, String nome, String cpf, String email, String senha) {
-        this.id = id;
-        this.nome = nome;
-        this.cpf = cpf;
-        this.email = email;
-        this.senha = senha;
+    public Usuario() {
     }
 
     public int getId() {

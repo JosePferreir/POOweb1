@@ -1,0 +1,31 @@
+create table endereco(
+    endereco_id serial not null primary key,
+    CEP varchar(9) not null,
+    estado varchar(40) not null,
+    cidade varchar(40) not null,
+    rua varchar(40) not null,
+    numero varchar(6) not null,
+    complemento varchar(40)
+);
+create table usuario(
+    usuario_id serial not null primary key,
+    nome varchar(40) not null,
+    idade int,
+    cpf varchar(14) not null,
+    email varchar(25) not null,
+    senha varchar(72) not null,
+    endereco int,
+    foreign key (endereco) references endereco(endereco_id)
+);
+
+insert into usuario values (1,'Jose',19,'132.456.789-45','jose@teste','1234',null);
+insert into usuario values (2,'Gabriel',20,'321.654.987-54','gabe@teste','1234',null);
+insert into usuario(nome, idade, cpf, email, senha, endereco) values ('Carlos',19,'147.258.369-10','carlos@teste','1324',null);
+select * from usuario;
+
+
+alter table endereco add column bairro varchar(40);
+insert into endereco values(1,'12789-000','Rio Grande do Sul','Santa Maria', 'Rua Torta', '1122',null,'Bairro Camobi');
+select * from endereco;
+
+select * from usuario,endereco where usuario.endereco = endereco.endereco_id;
