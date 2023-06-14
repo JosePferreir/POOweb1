@@ -41,22 +41,26 @@ public class UsuarioDAO {
         return usuarios;
     }
 
-    public ArrayList<Usuario> getUsuariosEndereco(){
-        ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+    public Usuario getUsuarioEndereco(int id){
+        Usuario u = new Usuario();
 
         try(Connection conn = new ConectaDB().getConexao()){
-            this.sql = "select * from usuario,endereco where usuario.endereco = endereco.endereco_id";
+            this.sql = "select * from usuario,endereco where endereco.usuario_id = usuario.usuario_id and usuario.usuario_id = ?";
+            /*
             this.stmt = conn.createStatement();
             this.rs = stmt.executeQuery(sql);
+            */
+            this.preparedStatement = conn.prepareStatement(this.sql);
+            preparedStatement.setInt(1,id);
+            this.rs = this.preparedStatement.executeQuery();
+
 
             while(this.rs.next()){
-                Usuario user = new Usuario();
-
-                user.setId(this.rs.getInt("usuario_id"));
-                user.setNome(this.rs.getString("nome"));
-                user.setCpf(this.rs.getString("cpf"));
-                user.setIdade(this.rs.getInt("idade"));
-                user.setEmail(this.rs.getString("email"));
+                u.setId(this.rs.getInt("usuario_id"));
+                u.setNome(this.rs.getString("nome"));
+                u.setCpf(this.rs.getString("cpf"));
+                u.setIdade(this.rs.getInt("idade"));
+                u.setEmail(this.rs.getString("email"));
 
                 Endereco endereco = new Endereco();
                 endereco.setId(this.rs.getInt("endereco_id"));
@@ -68,30 +72,25 @@ public class UsuarioDAO {
                 endereco.setComplemento(this.rs.getString("complemento"));
                 endereco.setBairro(this.rs.getString("bairro"));
 
-                user.setEndereco(endereco);
+                u.setEndereco(endereco);
 
-
-
-                usuarios.add(user);
             }
         }catch (Exception e){
             e.printStackTrace();
         }
-
-        return usuarios;
+        return u;
     }
 
     public String cadastrarUsuario(Usuario u){
         try(Connection conn = new ConectaDB().getConexao()){
-            this.sql = "insert into usuario(usuario_id, nome, idade, cpf, email, senha) values (?,?,?,?,?,?)";
+            this.sql = "insert into usuario(nome, idade, cpf, email, senha) values (?,?,?,?,?)";
 
             this.preparedStatement = conn.prepareStatement(this.sql);
-            this.preparedStatement.setInt(1,u.getId());
-            this.preparedStatement.setString(2,u.getNome());
-            this.preparedStatement.setInt(3,u.getIdade());
-            this.preparedStatement.setString(4,u.getCpf());
-            this.preparedStatement.setString(5,u.getEmail());
-            this.preparedStatement.setString(6,u.getSenha());
+            this.preparedStatement.setString(1,u.getNome());
+            this.preparedStatement.setInt(2,u.getIdade());
+            this.preparedStatement.setString(3,u.getCpf());
+            this.preparedStatement.setString(4,u.getEmail());
+            this.preparedStatement.setString(5,u.getSenha());
 
             this.preparedStatement.execute();
 
