@@ -4,15 +4,17 @@ import dao.ConectaDB;
 import dao.EnderecoDAO;
 import dao.UsuarioDAO;
 import model.Endereco;
+import model.Permissao;
 import model.Usuario;
 
 public class Teste {
     public static void main(String[] args) {
 
         //testeCadastrarUsuario();
-        testeGetAllUsuarios();
         //testeCadastrarEndereco();
         //testeGetUsuarioEndereco();
+        //testeGetAllUsuarios();
+
     }
 
     public static void testeGetAllUsuarios(){
@@ -21,6 +23,7 @@ public class Teste {
             System.out.println("Idade: "+u.getIdade());
             System.out.println("Cpf: "+u.getCpf());
             System.out.println("Email: "+u.getEmail());
+            System.out.println("Permissao: "+u.getPermissao().getNome());
         }
     }
     public static void testeGetUsuarioEndereco(){
@@ -35,12 +38,16 @@ public class Teste {
     }
 
     public static void testeCadastrarUsuario(){
+        Permissao p = new Permissao();
+
+
         Usuario u = new Usuario();
-        u.setNome("Jose");
+        u.setNome("Errado");
         u.setIdade(19);
-        u.setCpf("123.456.789.45");
-        u.setEmail("jose@teste");
+        u.setCpf("123.456.789.43");
+        u.setEmail("erro@teste");
         u.setSenha("1234");
+        u.setPermissao(p);
 
         new UsuarioDAO().cadastrarUsuario(u);
     }

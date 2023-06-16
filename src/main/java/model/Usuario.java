@@ -10,6 +10,7 @@ public class Usuario {
     private String email;
     private String senha;
     private Endereco endereco;
+    private Permissao permissao;
 
     public Usuario() {
     }
@@ -68,5 +69,13 @@ public class Usuario {
 
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
+    }
+
+    public Permissao getPermissao() {
+        return permissao;
+    }
+
+    public void setPermissao(Permissao permissao) {
+        this.permissao = permissao;
     }
 }

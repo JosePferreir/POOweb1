@@ -1,0 +1,38 @@
+create table cliente(
+    cliente_id serial primary key,
+    usuario_id int,
+    foreign key (usuario_id) REFERENCES usuario(usuario_id)
+);
+create table permissao(
+    permissao_id serial primary key,
+    nome_permissao varchar(40)
+);
+create table usuario_permissao (
+    id_usu_perm serial primary key,
+    usuario_id int,
+    permissao_id int,
+    foreign key (usuario_id) REFERENCES usuario(usuario_id),
+    foreign key (permissao_id) REFERENCES permissao(permissao_id)
+);
+
+insert into permissao (nome_permissao) values ('CLIENTE');
+SELECT * FROM permissao;
+select * from usuario;
+insert into usuario_permissao(usuario_id, permissao_id) values (1,1);
+
+SELECT * FROM usuario, permissao, usuario_permissao
+         WHERE usuario.usuario_id = usuario_permissao.usuario_id
+           AND permissao.permissao_id = usuario_permissao.permissao_id;
+
+create table roupa(
+    id_roupa serial primary key,
+    nome varchar(30),
+    tamanho varchar(5),
+    preco float,
+    cor varchar(20),
+    descricao varchar(60)
+);
+
+select * from roupa;
+
+insert into roupa(nome, tamanho, preco, cor, descricao) values ('Camisa-polo-branca','GG',70,'branca','nao sei oq escrever');
