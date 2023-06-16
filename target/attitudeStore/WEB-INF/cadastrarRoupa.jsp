@@ -29,5 +29,7 @@
     <br />
     <button type="submit">Cadastrar Roupa</button>
   </form>
+
+  <a href="admin?op=Menu">Voltar</a>
 </body>
 </html>

@@ -2,6 +2,8 @@ package controller;
 
 
 import dao.UsuarioDAO;
+import model.Permissao;
+import model.Usuario;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,11 +16,40 @@ import java.io.IOException;
 @WebServlet("clientes")
 public class UsuarioController extends HttpServlet {
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String op = req.getParameter("op");
+        String userId = req.getParameter("userId");
 
-        req.setAttribute("cliente", new UsuarioDAO().getAllUsuarios());
+        if(op.equals("getAllUsuarios"))   {
+            req.setAttribute("cliente", new UsuarioDAO().getAllUsuarios());
+            RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/clientes.jsp");
+            dispatcher.forward(req, resp);
+        }else if(op.equals("cadastrar")){
+            String nome = req.getParameter("nome");
+            String idade = req.getParameter("idade");
+            String cpf = req.getParameter("cpf");
+            String email = req.getParameter("email");
+            String senha = req.getParameter("senha");
 
-        RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/clientes.jsp");
-        dispatcher.forward(req, resp);
+            Usuario u = new Usuario();
+
+            u.setNome(nome);
+            u.setIdade(Integer.parseInt(idade));
+            u.setCpf(cpf);
+            u.setEmail(email);
+            u.setSenha(senha);
+
+            Permissao p = new Permissao(2,"CLIENTE");
+            u.setPermissao(p);
+
+            new UsuarioDAO().cadastrarUsuario(u);
+
+            RequestDispatcher dispatcher;
+            dispatcher = req.getRequestDispatcher("/index.jsp");
+            dispatcher.forward(req, resp);
+        }else if(op.equals("editarUsuario")){
+
+        }
+
 
     }
 }

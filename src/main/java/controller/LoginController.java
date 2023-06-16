@@ -35,7 +35,7 @@ public class LoginController extends HttpServlet {
                 //resp.sendRedirect("/WEB-INF/principalAdmin.jsp");
             }
         }else{
-            dispatcher = req.getRequestDispatcher("/login.jsp");
+            dispatcher = req.getRequestDispatcher("/index.jsp");
             dispatcher.forward(req, resp);
         }
 

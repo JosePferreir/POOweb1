@@ -12,5 +12,8 @@
 </head>
 <body>
     <h1>Bem vindo a Attitude Store</h1>
+    <br> <br>
+
+    <a href="index.jsp">Voltar</a>
 </body>
 </html>

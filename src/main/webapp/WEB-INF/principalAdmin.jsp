@@ -14,7 +14,10 @@
     <h1>Bem vindo admin</h1>
     <a href="roupas?op=VerRoupas">Ver roupas cadastradas</a> <br>
     <a href="admin?op=CadastrarRoupa">Cadastrar roupa</a> <br> <br>
-    <a href="clientes">Ver clientes cadastrados</a>
+
+    <a href="clientes?op=getAllUsuarios">Ver clientes cadastrados</a> <br> <br>
+    <a href="index.jsp">Sair</a>
+
 
 </body>
 </html>

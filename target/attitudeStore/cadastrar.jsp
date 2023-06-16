@@ -11,7 +11,7 @@
     <title>Cadastrar-se</title>
 </head>
 <body>
-    <form method="post" action="cadastrar">
+    <form method="post" action="clientes">
         <label for="nome">Nome: </label>
         <input type="text" id="nome" name="nome"><br />
         <label for="idade">Idade: </label>
@@ -22,12 +22,12 @@
         <input type="text" id="email" name="email"><br />
         <label for="senha">Senha: </label>
         <input type="password" id="senha" name="senha">
-        <input type="hidden" id="op" name="op" >
+        <input type="hidden" name="op" value="cadastrar">
         <br />
         <br />
         <button type="submit">Cadastrar-se</button>
     </form>
-    <a href="login.jsp">Login</a>
+    <a href="index.jsp">Login</a>
 
 </body>
 </html>

@@ -1,37 +1,50 @@
 create table endereco(
-    endereco_id serial not null primary key,
-    CEP varchar(9) not null,
-    estado varchar(40) not null,
-    cidade varchar(40) not null,
-    bairro varchar(40) not null,
-    rua varchar(40) not null,
-    numero varchar(6) not null,
-    complemento varchar(40),
-    usuario_id int,
-    foreign key (usuario_id) references usuario(usuario_id)
+                         endereco_id serial not null primary key,
+                         CEP varchar(9) not null,
+                         estado varchar(40) not null,
+                         cidade varchar(40) not null,
+                         bairro varchar(40) not null,
+                         rua varchar(40) not null,
+                         numero varchar(6) not null,
+                         complemento varchar(40),
+                         usuario_id int,
+                         foreign key (usuario_id) references usuario(usuario_id)
 );
 create table usuario(
-    usuario_id serial not null primary key,
-    nome varchar(40) not null,
-    idade int,
-    cpf varchar(14) not null,
-    email varchar(25) not null unique,
-    senha varchar(72) not null
+                        usuario_id serial not null primary key,
+                        nome varchar(40) not null,
+                        idade int,
+                        cpf varchar(14) not null,
+                        email varchar(25) not null unique,
+                        senha varchar(72) not null
 );
-/*
-insert into usuario values (1,'Jose',19,'132.456.789-45','jose@teste','1234',null);
-insert into usuario values (2,'Gabriel',20,'321.654.987-54','gabe@teste','1234',null);
-*/
-insert into usuario(nome, idade, cpf, email, senha) values ('Carlos',19,'147.258.369-10','carlos@teste','1324');
+create table permissao(
+                          permissao_id serial primary key,
+                          nome_permissao varchar(40)
+);
+create table usuario_permissao (
+                                   id_usu_perm serial primary key,
+                                   usuario_id int,
+                                   permissao_id int,
+                                   foreign key (usuario_id) REFERENCES usuario(usuario_id),
+                                   foreign key (permissao_id) REFERENCES permissao(permissao_id)
+);
+create table roupa(
+                      id_roupa serial primary key,
+                      nome varchar(30),
+                      tamanho varchar(5),
+                      preco float,
+                      cor varchar(20),
+                      descricao varchar(60)
+);
 
-select * from usuario where email = 'jose@teste';
+insert into permissao (nome_permissao) values ('ADMIN');
+insert into usuario(nome, idade, cpf, email, senha) values ('Jose',20,'123.456.789-10','jose@teste','1234');
+insert into usuario_permissao(usuario_id, permissao_id) values (1,1);
 
-insert into endereco(cep, estado, cidade, rua, numero, complemento, bairro, usuario_id) values ('12789-000','Rio Grande do Sul','Santa Maria', 'Rua Torta', '1122', null,'Camobi',1);
+SELECT * FROM usuario, permissao, usuario_permissao
+WHERE usuario.usuario_id = usuario_permissao.usuario_id
+  AND permissao.permissao_id = usuario_permissao.permissao_id;
 
 
-select * from endereco;
-
-select * from usuario,endereco where endereco.usuario_id = usuario.usuario_id and usuario.usuario_id = 1;
-
-select * from usuario,endereco where usuario= endereco.endereco_id;
-
+select * from roupa;

@@ -20,6 +20,8 @@
         <thead>
             <tr>
                 <th>Nome</th>
+                <th>Idade</th>
+                <th>CPF</th>
                 <th>Email</th>
             </tr>
         </thead>
@@ -28,12 +30,16 @@
                 <c:if test="${c.permissao.nome == 'CLIENTE'}">
                     <tr>
                         <td>${c.nome}</td>
+                        <td>${c.idade}</td>
+                        <td>${c.cpf}</td>
                         <td>${c.email}</td>
                     </tr>
                 </c:if>
             </c:forEach>
         </tbody>
     </table>
+
+    <a href="admin?op=Menu">Voltar</a>
 
 
 </body>
