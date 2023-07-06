@@ -6,6 +6,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page isELIgnored="false" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,36 +30,37 @@
 <div class="container">
   <div class="card">
     <div class="card-body">
-      <h1 class="card-title">Cadastrar Roupas</h1>
+      <h1 class="card-title">Editar Roupa</h1>
       <br>
       <form method="post" action="roupas">
         <div class="form-group">
           <label for="nome">Nome:</label>
-          <input type="text" class="form-control" id="nome" name="nome">
+          <input type="text" class="form-control" id="nome" name="nome" value="${roupaEditar.nome}">
         </div>
         <div class="form-group">
           <label for="tamanho">Tamanho:</label>
-          <input type="text" class="form-control" id="tamanho" name="tamanho">
+          <input type="text" class="form-control" id="tamanho" name="tamanho" value="${roupaEditar.tamanho}">
         </div>
         <div class="form-group">
           <label for="preco">Preço:</label>
-          <input type="number" class="form-control" id="preco" name="preco">
+          <input type="number" class="form-control" id="preco" name="preco" value="${roupaEditar.preco}">
         </div>
         <div class="form-group">
           <label for="cor">Cor:</label>
-          <input type="text" class="form-control" id="cor" name="cor">
+          <input type="text" class="form-control" id="cor" name="cor" value="${roupaEditar.cor}">
         </div>
         <div class="form-group">
           <label for="descricao">Descrição:</label>
-          <input type="text" class="form-control" id="descricao" name="descricao">
+          <input type="text" class="form-control" id="descricao" name="descricao" value="${roupaEditar.descricao}">
         </div>
-        <input type="hidden" name="op" value="CadastrarRoupa">
+        <input type="hidden" name="op" value="confirmarEditar">
+        <input type="hidden" name="id" value="${roupaEditar.id}">
         <br>
         <br>
-        <button class="btn btn-primary" type="submit">Cadastrar Roupa</button>
+        <button class="btn btn-primary" type="submit">Editar Roupa</button>
       </form>
 
-      <a href="admin?op=Menu">Voltar</a>
+      <a href="roupas?op=VerRoupas">Voltar</a>
     </div>
   </div>
 </div>

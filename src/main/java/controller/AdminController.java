@@ -23,6 +23,8 @@ public class AdminController extends HttpServlet {
             RequestDispatcher dispatcher;
             dispatcher = req.getRequestDispatcher("/WEB-INF/principalAdmin.jsp");
             dispatcher.forward(req, resp);
+        }else if(op.equals("Excluir")){
+            System.out.println("entrou");
         }
 
     }

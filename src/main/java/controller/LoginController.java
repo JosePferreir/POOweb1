@@ -1,5 +1,6 @@
 package controller;
 
+import dao.RoupaDAO;
 import dao.UsuarioDAO;
 import model.Usuario;
 import service.LoginService;
@@ -27,8 +28,9 @@ public class LoginController extends HttpServlet {
         if(u != null){
             System.out.println(u.getPermissao().getNome());
             if(u.getPermissao().getNome().equals("CLIENTE")){
+                req.setAttribute("roupas",new RoupaDAO().getAllRoupas());
                 dispatcher = req.getRequestDispatcher("/WEB-INF/principal.jsp");
-                dispatcher.forward(req, resp);
+                dispatcher.forward(req, resp);;
             } else if (u.getPermissao().getNome().equals("ADMIN")) {
                 dispatcher = req.getRequestDispatcher("/WEB-INF/principalAdmin.jsp");
                 dispatcher.forward(req, resp);

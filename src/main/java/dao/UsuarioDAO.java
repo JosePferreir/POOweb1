@@ -45,7 +45,7 @@ public class UsuarioDAO {
 
         return usuarios;
     }
-    public Usuario getUsuario(String email){
+    public Usuario getUsuarioAutenticar(String email){
         Usuario u = new Usuario();
         try(Connection conn = new ConectaDB().getConexao()){
             this.sql = "SELECT * FROM usuario, permissao, usuario_permissao " +
@@ -72,8 +72,77 @@ public class UsuarioDAO {
         }catch(Exception e){
             e.printStackTrace();
         }
-
         return u;
+    }
+
+    public Usuario getUsuarioById(int id){
+        Usuario u = new Usuario();
+        try(Connection conn = new ConectaDB().getConexao()){
+            this.sql = "SELECT * FROM usuario, permissao, usuario_permissao " +
+                    "WHERE usuario.usuario_id = usuario_permissao.usuario_id and " +
+                    "permissao.permissao_id = usuario_permissao.permissao_id and " +
+                    "usuario.usuario_id = ?";
+            this.preparedStatement = conn.prepareStatement(this.sql);
+            preparedStatement.setInt(1,id);
+            this.rs = this.preparedStatement.executeQuery();
+
+            while(this.rs.next()){
+                u.setId(this.rs.getInt("usuario_id"));
+                u.setNome(this.rs.getString("nome"));
+                u.setCpf(this.rs.getString("cpf"));
+                u.setIdade(this.rs.getInt("idade"));
+                u.setEmail(this.rs.getString("email"));
+                u.setSenha((this.rs.getString(("senha"))));
+
+                Permissao p = new Permissao();
+                p.setId(rs.getInt("permissao_id"));
+                p.setNome(rs.getString("nome_permissao"));
+                u.setPermissao(p);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return u;
+    }
+
+    public void editarUsuario(Usuario u){
+        try(Connection conn = new ConectaDB().getConexao()){
+            this.sql = "update usuario SET nome = ?, idade = ?, cpf = ?, email = ?, senha = ? WHERE usuario_id = ?";
+            this.preparedStatement = conn.prepareStatement(this.sql);
+
+            this.preparedStatement.setString(1,u.getNome());
+            this.preparedStatement.setInt(2,u.getIdade());
+            this.preparedStatement.setString(3,u.getCpf());
+            this.preparedStatement.setString(4,u.getEmail());
+            this.preparedStatement.setString(5,u.getSenha());
+            this.preparedStatement.setInt(6,u.getId());
+
+            this.preparedStatement.execute();
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+
+    }
+
+    public void excluirUsuario(int id){
+        try(Connection conn = new ConectaDB().getConexao()){
+            this.sql = "DELETE FROM usuario_permissao WHERE usuario_id = ?";
+            this.preparedStatement = conn.prepareStatement(this.sql);
+
+            this.preparedStatement.setInt(1,id);
+
+            this.preparedStatement.execute();
+
+            this.sql = "DELETE FROM usuario WHERE usuario_id = ?";
+            this.preparedStatement = conn.prepareStatement(this.sql);
+
+            this.preparedStatement.setInt(1,id);
+
+            this.preparedStatement.execute();
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
     }
 
     public Usuario getUsuarioEndereco(int id){
