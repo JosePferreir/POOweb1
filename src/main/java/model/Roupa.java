@@ -7,7 +7,7 @@ public class Roupa {
     private int preco;
     private String cor;
     private String descricao;
-    private int quantidade;
+    private int quantidade = 0;
 
     public Roupa() {
     }

@@ -28,29 +28,32 @@
     <h1 class="text-center">Itens no seu carrinho</h1>
 
     <table class="table">
-        <thead>
+        <thead class="table-secondary">
         <tr>
             <th>Nome</th>
             <th>Tamanho</th>
             <th>Cor</th>
-            <th>Descrição</th>
+            <th>Quantidade</th>
             <th>Preço</th>
         </tr>
         </thead>
         <tbody>
-        <c:forEach var="r" items="${roupas}">
+        <c:forEach var="r" items="${carrinho.roupas}">
             <tr>
-                <td>${r.roupas.nome}</td>
-                <td>${r.roupas.tamanho}</td>
-                <td>${r.roupas.cor}</td>
-                <td>${r.roupas.descricao}</td>
-                <td>${r.roupas.preco}</td>
+                <td>${r.nome}</td>
+                <td>${r.tamanho}</td>
+                <td>${r.cor}</td>
+                <td>${r.quantidade}</td>
+                <td>${r.preco*r.quantidade} (${r.preco}x${r.quantidade})</td>
             </tr>
         </c:forEach>
         </tbody>
-    </table>
-    <table>
-
+        <tfoot class="table-secondary">
+        <tr>
+            <th colspan="4">Valor total:</th>
+            <th>${carrinho.totalCompra}</th>
+        </tr>
+        </tfoot>
     </table>
     <div>
         <a href="compra?op=VerCatalogo">Voltar</a>

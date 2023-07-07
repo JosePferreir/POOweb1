@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Compra {
     private int id;
-    private float totalCompra;
+    private float totalCompra = 0;
     private ArrayList<Roupa> roupas = new ArrayList<Roupa>();
 
     public int getId() {
@@ -20,7 +20,7 @@ public class Compra {
     }
 
     public void setTotalCompra(float totalCompra) {
-        this.totalCompra = totalCompra;
+        this.totalCompra += totalCompra;
     }
 
     public ArrayList<Roupa> getRoupas() {
@@ -28,9 +28,8 @@ public class Compra {
     }
 
     public void setRoupas(Roupa roupa) {
-        if(this.roupas.size() == 0){
-            this.totalCompra =roupa.getPreco();
-        }
+        roupa.setQuantidade(+1);
         this.roupas.add(roupa);
+        this.setTotalCompra(roupa.getPreco());
     }
 }

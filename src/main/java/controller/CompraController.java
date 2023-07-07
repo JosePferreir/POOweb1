@@ -3,6 +3,7 @@ package controller;
 import dao.RoupaDAO;
 import model.Compra;
 import model.Roupa;
+import model.Usuario;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -26,27 +27,30 @@ public class CompraController extends HttpServlet {
 
         HttpSession session = req.getSession();
         Compra carrinho = (Compra) session.getAttribute("carrinho");
+        Usuario user = (Usuario) session.getAttribute("user");
+
+        if(user == null){
+            dispatcher = req.getRequestDispatcher("/index.jsp");
+            dispatcher.forward(req, resp);
+        }else{
+            System.out.println("\n\n");
+            System.out.println(user.getPermissao().getNome());
+            System.out.println(user.getNome());
+        }
 
         if(op.equals("AdicionarItem")){
             /**/
             String id = req.getParameter("id");
-            if(carrinho.getRoupas().size() == 0){
-                Roupa r = new RoupaDAO().getRoupa(parseInt(id));
-                carrinho.setRoupas(r);
-            }else{
 
-
-                Roupa r = new RoupaDAO().getRoupa(parseInt(id));
-                carrinho.setRoupas(r);
-            }
-
+            Roupa r = new RoupaDAO().getRoupa(parseInt(id));
+            carrinho.setRoupas(r);
 
             req.setAttribute("roupas",new RoupaDAO().getAllRoupas());
             dispatcher = req.getRequestDispatcher("/WEB-INF/principal.jsp");
             dispatcher.forward(req, resp);
         }else if(op.equals("VerCarrinho")){
 
-            req.setAttribute("roupas",carrinho.getRoupas());
+            req.setAttribute("carrinho",carrinho);
             req.setAttribute("total",carrinho.getTotalCompra());
             dispatcher = req.getRequestDispatcher("/WEB-INF/verCarrinho.jsp");
             dispatcher.forward(req, resp);
