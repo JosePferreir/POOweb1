@@ -18,6 +18,7 @@
 <body>
 
 <h1 class="text-center">Bem vindo a Attitude Store</h1>
+<a href="compra?op=VerCarrinho">Ver itens no carrinho</a>
 <div class="container d-flex justify-content-center align-items-center flex-column">
 
     <c:forEach var="r" items="${roupas}">
@@ -26,14 +27,14 @@
             <div class="card-body text-center">
                 <h5 class="card-title">${r.nome}</h5>
                 <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+                <a href="compra?op=AdicionarItem&&id=${r.id}" class="btn btn-primary">Adicionar a compra</a>
             </div>
         </div>
     </c:forEach>
 
 
     <div class="mt-3">
-        <a href="index.jsp">Voltar</a>
+        <a href="login?op=sair">Voltar</a>
     </div>
 
 </div>

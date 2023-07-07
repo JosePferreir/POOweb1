@@ -12,7 +12,7 @@
     <div class="card">
         <div class="card-body">
             <h2 class="card-title">LOGAR</h2>
-            <form method="POST" action="login">
+            <form method="POST" action="login?op=logar">
                 <div class="form-group">
                     <label for="email">Email:</label>
                     <input type="text" class="form-control" id="email" name="email">

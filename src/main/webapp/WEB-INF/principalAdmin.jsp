@@ -31,7 +31,7 @@
             <a href="roupas?op=VerRoupas" class="card-link btn btn-primary">Ver roupas cadastradas</a> <br>
             <a href="admin?op=CadastrarRoupa" class="card-link btn btn-primary">Cadastrar roupa</a> <br> <br>
             <a href="clientes?op=getAllUsuarios" class="card-link btn btn-primary">Ver clientes cadastrados</a> <br> <br>
-            <a href="index.jsp" class="card-link">Sair</a>
+            <a href="login?op=sair" class="card-link">Sair</a>
         </div>
     </div>
 </div>
