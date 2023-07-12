@@ -1,5 +1,6 @@
 package controller;
 
+import dao.CompraDAO;
 import dao.RoupaDAO;
 import model.Compra;
 import model.Roupa;
@@ -39,11 +40,25 @@ public class CompraController extends HttpServlet {
         }
 
         if(op.equals("AdicionarItem")){
-            /**/
+            boolean jaTem = false;
             String id = req.getParameter("id");
 
-            Roupa r = new RoupaDAO().getRoupa(parseInt(id));
-            carrinho.setRoupas(r);
+            System.out.println(jaTem);
+            for(int i = 0; i < carrinho.getRoupas().size(); i++){
+                System.out.println(carrinho.getRoupas().get(i).getId());
+                if(carrinho.getRoupas().get(i).getId() == parseInt(id)){
+                    carrinho.getRoupas().get(i).setQuantidade(1);
+                    System.out.println(carrinho.getRoupas().get(i).getQuantidade());
+                    carrinho.setTotalCompra(carrinho.getRoupas().get(i).getPreco());
+                    jaTem = true;
+                }
+            }
+            if(jaTem == false){
+                Roupa r = new RoupaDAO().getRoupa(parseInt(id));
+                carrinho.setRoupas(r);
+                System.out.println("aaa");
+            }
+            System.out.println(jaTem);
 
             req.setAttribute("roupas",new RoupaDAO().getAllRoupas());
             dispatcher = req.getRequestDispatcher("/WEB-INF/principal.jsp");
@@ -51,11 +66,16 @@ public class CompraController extends HttpServlet {
         }else if(op.equals("VerCarrinho")){
 
             req.setAttribute("carrinho",carrinho);
-            req.setAttribute("total",carrinho.getTotalCompra());
             dispatcher = req.getRequestDispatcher("/WEB-INF/verCarrinho.jsp");
             dispatcher.forward(req, resp);
 
         }else if(op.equals("VerCatalogo")) {
+            req.setAttribute("roupas",new RoupaDAO().getAllRoupas());
+            dispatcher = req.getRequestDispatcher("/WEB-INF/principal.jsp");
+            dispatcher.forward(req, resp);
+        }else if(op.equals("FinalizarCompra")){
+            System.out.println(carrinho.getId());
+            //new CompraDAO().cadastrarCompra(carrinho,user);
             req.setAttribute("roupas",new RoupaDAO().getAllRoupas());
             dispatcher = req.getRequestDispatcher("/WEB-INF/principal.jsp");
             dispatcher.forward(req, resp);
