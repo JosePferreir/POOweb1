@@ -30,33 +30,39 @@
 <div class="container">
     <h1>Clientes cadastrados</h1>
 
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Nome</th>
-            <th>Idade</th>
-            <th>CPF</th>
-            <th>Email</th>
-            <th>Ações</th>
-        </tr>
-        </thead>
-        <tbody>
-        <c:forEach var="c" items="${cliente}">
-            <c:if test="${c.permissao.nome == 'CLIENTE'}">
+    <div class="card">
+        <div class="card-body">
+            <table class="table">
+                <thead>
                 <tr>
-                    <td>${c.nome}</td>
-                    <td>${c.idade}</td>
-                    <td>${c.cpf}</td>
-                    <td>${c.email}</td>
-                    <td>
-                        <a href="clientes?op=ExcluirUsuario&&id=${c.id}">Excluir</a>
-                        <a href="clientes?op=EditarUsuario&&id=${c.id}">Editar</a>
-                    </td>
+                    <th>Nome</th>
+                    <th>Idade</th>
+                    <th>CPF</th>
+                    <th>Email</th>
+                    <th>Ações</th>
                 </tr>
-            </c:if>
-        </c:forEach>
-        </tbody>
-    </table>
+                </thead>
+                <tbody>
+                <c:forEach var="c" items="${cliente}">
+                    <c:if test="${c.permissao.nome == 'CLIENTE'}">
+                        <tr>
+                            <td>${c.nome}</td>
+                            <td>${c.idade}</td>
+                            <td>${c.cpf}</td>
+                            <td>${c.email}</td>
+                            <td>
+                                <a href="clientes?op=ExcluirUsuario&&id=${c.id}">Excluir</a>
+                                <a href="clientes?op=EditarUsuario&&id=${c.id}">Editar</a>
+                            </td>
+                        </tr>
+                    </c:if>
+                </c:forEach>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
 
     <a href="admin?op=Menu">Voltar</a>
 </div>

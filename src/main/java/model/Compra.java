@@ -7,6 +7,8 @@ public class Compra {
     private float totalCompra = 0;
     private ArrayList<Roupa> roupas = new ArrayList<Roupa>();
 
+    private Usuario cliente;
+
     public int getId() {
         return id;
     }
@@ -28,8 +30,16 @@ public class Compra {
     }
 
     public void setRoupas(Roupa roupa) {
-        roupa.setQuantidade(+1);
+        //roupa.setQuantidade(+1);
         this.roupas.add(roupa);
         this.setTotalCompra(roupa.getPreco());
+    }
+
+    public Usuario getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Usuario cliente) {
+        this.cliente = cliente;
     }
 }

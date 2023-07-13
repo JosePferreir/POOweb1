@@ -2,6 +2,7 @@ package controller;
 
 import dao.CompraDAO;
 import dao.RoupaDAO;
+import dao.UsuarioDAO;
 import model.Compra;
 import model.Roupa;
 import model.Usuario;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import static java.lang.Float.parseFloat;
 import static java.lang.Integer.parseInt;
 
 @WebServlet("compra")
@@ -56,7 +58,6 @@ public class CompraController extends HttpServlet {
             if(jaTem == false){
                 Roupa r = new RoupaDAO().getRoupa(parseInt(id));
                 carrinho.setRoupas(r);
-                System.out.println("aaa");
             }
             System.out.println(jaTem);
 
@@ -74,10 +75,43 @@ public class CompraController extends HttpServlet {
             dispatcher = req.getRequestDispatcher("/WEB-INF/principal.jsp");
             dispatcher.forward(req, resp);
         }else if(op.equals("FinalizarCompra")){
+
             System.out.println(carrinho.getId());
-            //new CompraDAO().cadastrarCompra(carrinho,user);
+            new CompraDAO().cadastrarCompra(carrinho,user);
+            session.setAttribute("carrinho", new Compra());
+
             req.setAttribute("roupas",new RoupaDAO().getAllRoupas());
             dispatcher = req.getRequestDispatcher("/WEB-INF/principal.jsp");
+            dispatcher.forward(req, resp);
+        }else if(op.equals("VerHistoricoUsuario")){
+            req.setAttribute("historico", new CompraDAO().getHistoricoUsuario(user.getId()));
+            dispatcher = req.getRequestDispatcher("/WEB-INF/HistoricoUsuario.jsp");
+            dispatcher.forward(req, resp);
+        }else if(op.equals("RemoverItem")){
+            String id = req.getParameter("id");
+
+            Roupa remover = null;
+
+            for(Roupa r : carrinho.getRoupas()){
+                if(r.getId() == parseInt(id)){
+                    remover = r;
+                }
+            }
+
+            carrinho.getRoupas().remove((remover));
+
+            req.setAttribute("carrinho",carrinho);
+            dispatcher = req.getRequestDispatcher("/WEB-INF/verCarrinho.jsp");
+            dispatcher.forward(req, resp);
+        }else if(op.equals("getHistoricoAdmin")){
+            req.setAttribute("historico", new CompraDAO().getHistoricoAdmin());
+            dispatcher = req.getRequestDispatcher("/WEB-INF/VendasAdmin.jsp");
+            dispatcher.forward(req, resp);
+        }else if(op.equals("VerCompra")){
+            String id = req.getParameter("id");
+            String valor = req.getParameter("valor");
+            req.setAttribute("compra", new CompraDAO().getCompraById(parseInt(id),parseFloat(valor)));
+            dispatcher = req.getRequestDispatcher("/WEB-INF/DetalhesCompraAdmin.jsp");
             dispatcher.forward(req, resp);
         }
     }

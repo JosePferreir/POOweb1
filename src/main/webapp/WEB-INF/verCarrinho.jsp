@@ -47,7 +47,7 @@
                 <td>${r.cor}</td>
                 <td>${r.quantidade}</td>
                 <td>
-                    <a class="btn btn-danger" href="compra?op=RemoverItem">
+                    <a class="btn btn-danger" href="compra?op=RemoverItem&&id=${r.id}">
                         <i class="fas fa-trash-alt"></i>
                     </a>
                 </td>

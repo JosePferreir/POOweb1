@@ -1,6 +1,7 @@
 package controller;
 
 
+import dao.RoupaDAO;
 import dao.UsuarioDAO;
 import model.Permissao;
 import model.Roupa;
@@ -37,7 +38,7 @@ public class UsuarioController extends HttpServlet {
             System.out.println(user.getNome());
         }
 
-        if(op.equals("getAllUsuarios"))   {
+        if(op.equals("getAllUsuarios")){
             req.setAttribute("cliente", new UsuarioDAO().getAllUsuarios());
             RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/clientes.jsp");
             dispatcher.forward(req, resp);
@@ -67,8 +68,6 @@ public class UsuarioController extends HttpServlet {
         }else if(op.equals("EditarUsuario")){
             String id = req.getParameter("id");
 
-            System.out.println("testando");
-            System.out.println(id);
             req.setAttribute("usuarioEditar", new UsuarioDAO().getUsuarioById(parseInt(id)));
 
             RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/editarUsuario.jsp");
@@ -91,16 +90,30 @@ public class UsuarioController extends HttpServlet {
             u.setSenha(senha);
 
             new UsuarioDAO().editarUsuario(u);
+            System.out.println(user.getPermissao().getNome());
+            if(user.getPermissao().getNome().equals("CLIENTE")){
+                session.setAttribute("user",new UsuarioDAO().getUsuarioById(u.getId()));
+                req.setAttribute("roupas",new RoupaDAO().getAllRoupas());
+                RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/principal.jsp");
+                dispatcher.forward(req, resp);
+            }else{
+                req.setAttribute("cliente", new UsuarioDAO().getAllUsuarios());
+                RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/clientes.jsp");
+                dispatcher.forward(req, resp);
+            }
 
-            req.setAttribute("cliente", new UsuarioDAO().getAllUsuarios());
-            RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/clientes.jsp");
-            dispatcher.forward(req, resp);
         }else if(op.equals("ExcluirUsuario")){
             String id = req.getParameter("id");
             new UsuarioDAO().excluirUsuario(parseInt(id));
 
             req.setAttribute("cliente", new UsuarioDAO().getAllUsuarios());
             RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/clientes.jsp");
+            dispatcher.forward(req, resp);
+        }else if(op.equals("EditarPerfil")){
+            //req.setAttribute("usuarioEditar", user);
+            System.out.println(user.getEndereco());
+            req.setAttribute("usuario", user);
+            RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/EditarPerfil.jsp");
             dispatcher.forward(req, resp);
         }
 

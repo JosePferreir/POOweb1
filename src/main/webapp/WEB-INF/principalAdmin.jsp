@@ -28,10 +28,11 @@
     <div class="card">
         <div class="card-body">
             <h1 class="card-title">Bem vindo admin</h1>
-            <a href="roupas?op=VerRoupas" class="card-link btn btn-primary">Ver roupas cadastradas</a> <br>
-            <a href="admin?op=CadastrarRoupa" class="card-link btn btn-primary">Cadastrar roupa</a> <br> <br>
-            <a href="clientes?op=getAllUsuarios" class="card-link btn btn-primary">Ver clientes cadastrados</a> <br> <br>
-            <a href="login?op=sair" class="card-link">Sair</a>
+            <a href="roupas?op=VerRoupas" class="card-link btn btn-primary mt-2">Ver roupas cadastradas</a> <br>
+            <a href="admin?op=CadastrarRoupa" class="card-link btn btn-primary mt-2">Cadastrar roupa</a> <br> <br>
+            <a href="clientes?op=getAllUsuarios" class="card-link btn btn-primary mt-2">Ver clientes cadastrados</a> <br> <br>
+            <a href="compra?op=getHistoricoAdmin" class="card-link btn btn-primary mt-2">Ver Histórico de Vendas</a>
+            <a href="login?op=sair" class="card-link btn btn-primary mt-2">Sair</a>
         </div>
     </div>
 </div>

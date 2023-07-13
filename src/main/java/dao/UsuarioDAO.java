@@ -83,7 +83,7 @@ public class UsuarioDAO {
                     "permissao.permissao_id = usuario_permissao.permissao_id and " +
                     "usuario.usuario_id = ?";
             this.preparedStatement = conn.prepareStatement(this.sql);
-            preparedStatement.setInt(1,id);
+            this.preparedStatement.setInt(1,id);
             this.rs = this.preparedStatement.executeQuery();
 
             while(this.rs.next()){
